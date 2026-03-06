@@ -26,7 +26,6 @@ function TreeNode({ node, level = 0, onSelect }) {
 }
 
 function ChartOfAccountsTree({ onSelect }) {
-  const [rows, setRows] = useState([]);
   const [tree, setTree] = useState([]);
 
   useEffect(() => {
@@ -34,8 +33,6 @@ function ChartOfAccountsTree({ onSelect }) {
       if (!window.api?.getChartOfAccounts) return;
       try {
         const data = await window.api.getChartOfAccounts();
-        setRows(data || []);
-
         const list = data || [];
         const map = {};
         list.forEach((item) => {
