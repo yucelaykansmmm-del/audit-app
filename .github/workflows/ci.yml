@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build analysis-engine
+        run: npm run build --workspace=analysis-engine
+
+      - name: Build react-ui
+        run: npm run build --workspace=react-ui
+
+      - name: Test react-ui
+        run: npm run test --workspace=react-ui -- --watchAll=false --passWithNoTests
+        - name: react-ui testleri
+  run: npm test --workspace=react-ui -- --watchAll=false --passWithNoTests
+
