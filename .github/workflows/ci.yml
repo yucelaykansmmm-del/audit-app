@@ -2,27 +2,40 @@ name: CI
 
 on:
   push:
-    branches: [main, ci-test]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
-        working-directory: react-ui
-        run: npm install
+        run: npm ci
+
+      - name: Run tests
+        run: npm test --if-present
 
       - name: Build project
-        working-directory: react-ui
-        run: npm run build
+        run: npm run build --if-present
+
+      # --- Workspace Cleanup Step ---
+      - name: Cleanup workspace
+        run: |
+          echo "Cleaning workspace..."
+          git clean -fdx
+          rm -rf node_modules
+          rm -rf .turbo
+          rm -rf dist
+          rm -rf build
+          echo "Workspace cleaned."
