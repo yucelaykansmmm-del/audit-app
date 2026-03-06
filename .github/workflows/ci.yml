@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, ci-test ]
+    branches: [main, ci-test]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -20,9 +20,9 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        working-directory: ./react-ui
+        working-directory: react-ui
         run: npm install
 
       - name: Build project
-        working-directory: ./react-ui
+        working-directory: react-ui
         run: npm run build
