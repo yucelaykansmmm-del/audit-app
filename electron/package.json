@@ -1,0 +1,12 @@
+{
+  "name": "audit-app-electron",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-ui": "cd ../react-ui && npm run build"
+  },
+  "dependencies": {
+    "electron": "^30.0.0","xlsx":"^0.18.5","better-sqlite3":"^11.6.0","pdf-parse":"^1.1.1"
+  }
+}

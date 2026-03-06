@@ -1,0 +1,11 @@
+{
+  "name": "audit-app-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "electron",
+    "react-ui",
+    "packages/*"
+  ]
+}
+
